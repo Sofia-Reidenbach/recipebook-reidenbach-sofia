@@ -2,7 +2,7 @@
 
 {% block title %}Recipe List{% endblock %}
 {% block content %}
-        {% for recipe in recipes %}
+        {% for recipe in objects_list %}
             <ul><a href= "{{  recipe.link }}" >{{ recipe.name }}</a></ul>
         {% endfor %}
 {% endblock %}

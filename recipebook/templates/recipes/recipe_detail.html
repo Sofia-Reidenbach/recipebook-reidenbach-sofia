@@ -3,14 +3,24 @@
 {% block title %}{{ recipe.name }}{% endblock %}
 
 {% block content %}
-    <h1>{{ recipe.name }}</h1>
+    {% if request.user.is_authenticated %}
+        <h1>{{ recipe.name }}</h1>
 
-    <h2>Ingredients:</h2>
-    <ul>
-        {% for ingredient in recipe.ingredients.all %}
-            <li>{{ ingredient.quantity }} of {{ ingredient.ingredient.name }}</li>
-        {% endfor %}
-    </ul>
+        <p>Author: <strong>{{ recipe.author }}</strong></p>
+        <p>Date Created: <strong>{{ recipe.created_on }}</strong></p>
+        <p>Updated on: <strong>{{ recipe.updated_on }}</strong></p>
 
-    <a href="{% url 'ledger:recipe_list' %}">Back to Recipe List</a>
+        <h2>Ingredients:</h2>
+        <ul>
+            {% for ingredient in recipe.ingredients.all %}
+                <li>{{ ingredient.quantity }} of {{ ingredient.ingredient.name }}</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'ledger:recipe_list' %}">Back to Recipe List</a>
+
+    {% else %}
+        <p>You must be logged in to view the recipe.</p>
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
 {% endblock %}

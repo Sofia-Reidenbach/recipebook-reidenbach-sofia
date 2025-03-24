@@ -17,6 +17,17 @@
             {% endfor %}
         </ul>
 
+        {% if recipe.recipe_images.all %}
+            <h2>Images:</h2>
+            <div>
+                {% for image in recipe.recipe_images.all %}
+                    <img src="{{ image.image.url }}" alt="{{ image.description }}">
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <a href="{% url 'ledger:recipe_image_upload' recipe.pk %}">Upload an Image</a>
+
         <a href="{% url 'ledger:recipe_list' %}">Back to Recipe List</a>
 
     {% else %}
